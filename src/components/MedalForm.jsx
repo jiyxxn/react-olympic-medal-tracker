@@ -2,35 +2,35 @@ import React, { useRef } from "react";
 import InputField from "./InputField";
 import Button from "./Button";
 
-const InputArea = ({ getUserInputs, handleFormSubmit, userInputs }) => {
+const MedalForm = ({ handleUserInputChange, handleFormSubmit, userInputs }) => {
   return (
     <form className="medal-input-container" onSubmit={handleFormSubmit}>
       <InputField
         type="text"
         label="국가"
         id="nation"
-        onChange={getUserInputs}
+        onChange={handleUserInputChange}
         value={userInputs.nation}
       />
       <InputField
         type="number"
         label="금메달"
         id="goldMedals"
-        onChange={getUserInputs}
+        onChange={handleUserInputChange}
         value={userInputs.goldMedals}
       />
       <InputField
         type="number"
         label="은메달"
         id="silverMedals"
-        onChange={getUserInputs}
+        onChange={handleUserInputChange}
         value={userInputs.silverMedals}
       />
       <InputField
         type="number"
         label="동메달"
         id="bronzeMedals"
-        onChange={getUserInputs}
+        onChange={handleUserInputChange}
         value={userInputs.bronzeMedals}
       />
       <div className="button-wrapper">
@@ -41,4 +41,4 @@ const InputArea = ({ getUserInputs, handleFormSubmit, userInputs }) => {
   );
 };
 
-export default InputArea;
+export default MedalForm;
