@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-import InputArea from "./components/InputArea";
-import ListArea from "./components/ListArea";
+import MedalForm from "./components/MedalForm";
+import MedalList from "./components/MedalList";
 import { validatePositiveNumber } from "./utils/validateInput";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
 
   const [submittedData, setSubmittedData] = useState([]);
 
+  // * input 필드 초기화
   const initializeUserInputs = () => {
     setUserInputs({
-      // state 초기화
       nation: "",
       goldMedals: "",
       silverMedals: "",
@@ -24,41 +24,50 @@ function App() {
     });
   };
 
-  const getUserInputs = (e) => {
+  // * 사용자가 입력한 값을 state에 업데이트
+  const handleUserInputChange = (e) => {
     const { id, value, type } = e.target;
 
     if (type == "number" && !validatePositiveNumber(value)) {
       alert("메달 개수는 0보다 작을 수 없습니다.");
       return;
     }
+
     setUserInputs((prevState) => {
       return { ...prevState, [id]: value };
     });
   };
 
+  // * 데이터 출력 및 입력 폼 초기화
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    if (Object.values(userInputs).some((val) => val === "")) {
+      alert("작성되지 않은 값이 있습니다.");
+      return;
+    }
 
     setSubmittedData((prevData) => {
       if (prevData.some((data) => data.nation === userInputs.nation)) {
         alert("이미 등록된 국가입니다. 업데이트를 이용해 주세요.");
-        return [...prevData];
+        return prevData;
       } else {
         return [...prevData, userInputs];
       }
     });
+
     initializeUserInputs();
   };
 
   return (
     <section>
       <h1>2024 파리 올림픽</h1>
-      <InputArea
-        getUserInputs={getUserInputs}
+      <MedalForm
+        handleUserInputChange={handleUserInputChange}
         handleFormSubmit={handleFormSubmit}
         userInputs={userInputs}
       />
-      {submittedData && <ListArea userInputs={submittedData} />}
+      {submittedData.length > 0 && <MedalList userInputs={submittedData} />}
     </section>
   );
 }
