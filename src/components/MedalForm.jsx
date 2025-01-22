@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputText from "./InputText";
 import Button from "./Button";
 import { onlyPositiveNumbers } from "../utils/onlyPositiveNumbers";
+import { ToastContainer, toast } from "react-toastify";
 
 const MedalForm = ({ saveMedalList, updateMedalList }) => {
   const [country, setCountry] = useState({
@@ -33,7 +34,8 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
     e.preventDefault();
 
     if (Object.values(country).some((val) => val === "")) {
-      alert("작성되지 않은 값이 있습니다.");
+      toast.error("작성되지 않은 값이 있습니다.");
+
       return;
     }
     const storedCountries = JSON.parse(localStorage.getItem("medalList"));
@@ -44,7 +46,8 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
       });
 
       if (existsNation) {
-        alert("이미 등록된 국가입니다. 업데이트를 이용해 주세요.");
+        toast.warning("이미 등록된 국가입니다. 업데이트를 이용해 주세요.");
+
         return;
       }
     }
