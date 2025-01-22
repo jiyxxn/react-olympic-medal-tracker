@@ -105,15 +105,15 @@ button {
   color: #fefefe;
 }
 .medal-list-wrapper table tr {
-  height: 46px;
+  height: 50px;
 }
 
 .medal-list-wrapper table tbody tr:not(:last-child) {
   border-bottom: solid 1px #eee;
 }
 
-.medal-list-wrapper table td:first-child {
-  background-color: rgb(236, 235, 243);
+.medal-list-wrapper table tbody tr:nth-child(odd) {
+  background-color: rgb(245, 244, 251);
 }
 
 .btn-delete {
