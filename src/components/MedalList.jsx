@@ -1,10 +1,11 @@
 import React from "react";
 import MedalListItems from "./MedalListItems";
 
-const MedalList = ({ userInputs }) => {
+const MedalList = ({ medalList }) => {
   // * Func : 금메달 기준 내림차순 정렬
-  const sortedUserInputs = () => {
-    return [...userInputs].sort((a, b) => {
+
+  const sortedMedalList = () => {
+    return [...medalList].sort((a, b) => {
       return b.goldMedals - a.goldMedals;
     });
   };
@@ -22,7 +23,7 @@ const MedalList = ({ userInputs }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedUserInputs().map((data) => (
+          {sortedMedalList().map((data) => (
             <MedalListItems data={data} key={data.nation} />
           ))}
         </tbody>
