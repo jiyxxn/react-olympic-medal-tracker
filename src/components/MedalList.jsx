@@ -1,33 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import MedalListItems from "./MedalListItems";
 
-const MedalList = ({ medalList }) => {
-  // * Func : 금메달 기준 내림차순 정렬
+const MedalList = ({ medalList, deleteMedalList }) => {
+  // * Func : 메달 리스트 정렬
+  const [sortOption, setSortOption] = useState("countOfGoldMedals");
 
   const sortedMedalList = () => {
-    return [...medalList].sort((a, b) => {
-      return b.goldMedals - a.goldMedals;
-    });
+    switch (sortOption) {
+      case "countOfGoldMedals":
+        return [...medalList].sort((a, b) => b.goldMedals - a.goldMedals);
+
+      case "sumOfMedals":
+        return [...medalList].sort((a, b) => b.sumOfMedals - a.sumOfMedals);
+
+      case "countOfSilverMedals":
+        return [...medalList].sort((a, b) => b.silverMedals - a.silverMedals);
+
+      case "countOfBronzeMedals":
+        return [...medalList].sort((a, b) => b.bronzeMedals - a.bronzeMedals);
+    }
+  };
+
+  // * 선택된 정렬 기준 업데이트
+  const sortMedalList = (e) => {
+    setSortOption(e.target.value);
   };
 
   return (
-    <div className="medal-list-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>국가명</th>
-            <th>금메달</th>
-            <th>은메달</th>
-            <th>동메달</th>
-            <th>액션</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedMedalList().map((data) => (
-            <MedalListItems data={data} key={data.nation} />
-          ))}
-        </tbody>
-      </table>
+    <div className="medal-list-container">
+      <select id="medalSortSelect" onChange={sortMedalList} value={sortOption}>
+        <option value="countOfGoldMedals">금메달</option>
+        <option value="countOfSilverMedals">은메달</option>
+        <option value="countOfBronzeMedals">동메달</option>
+        <option value="sumOfMedals">메달 합계</option>
+      </select>
+      <div className="medal-list-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>국가명</th>
+              <th>금메달</th>
+              <th>은메달</th>
+              <th>동메달</th>
+              <th>합계</th>
+              <th>액션</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedMedalList().map((data) => (
+              <MedalListItems
+                data={data}
+                key={data.nation}
+                deleteMedalList={deleteMedalList}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

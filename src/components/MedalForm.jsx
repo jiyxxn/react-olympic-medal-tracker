@@ -3,12 +3,13 @@ import InputText from "./InputText";
 import Button from "./Button";
 import { onlyPositiveNumbers } from "../utils/onlyPositiveNumbers";
 
-const MedalForm = ({ saveMedalList }) => {
+const MedalForm = ({ saveMedalList, updateMedalList }) => {
   const [country, setCountry] = useState({
     nation: "",
     goldMedals: "",
     silverMedals: "",
     bronzeMedals: "",
+    sumOfMedals: "",
   });
 
   // * 사용자가 입력한 값을 state에 업데이트
@@ -16,7 +17,15 @@ const MedalForm = ({ saveMedalList }) => {
     const { id, value } = e.target;
 
     setCountry((prevState) => {
-      return { ...prevState, [id]: value };
+      const updatedCountry = { ...prevState, [id]: value };
+
+      const goldCount = parseInt(updatedCountry.goldMedals) || 0;
+      const silverCount = parseInt(updatedCountry.silverMedals) || 0;
+      const bronzeCount = parseInt(updatedCountry.bronzeMedals) || 0;
+
+      const sumOfMedals = goldCount + silverCount + bronzeCount;
+
+      return { ...updatedCountry, sumOfMedals };
     });
   };
 
@@ -30,11 +39,11 @@ const MedalForm = ({ saveMedalList }) => {
     const storedCountries = JSON.parse(localStorage.getItem("medalList"));
 
     if (storedCountries) {
-      const hasSameNation = storedCountries.some((item) => {
+      const existsNation = storedCountries.some((item) => {
         return item.nation === country.nation;
       });
 
-      if (hasSameNation) {
+      if (existsNation) {
         alert("이미 등록된 국가입니다. 업데이트를 이용해 주세요.");
         return;
       }
@@ -88,7 +97,11 @@ const MedalForm = ({ saveMedalList }) => {
 
       <div className="button-wrapper">
         <Button text="국가 추가" type="submit" />
-        <Button text="업데이트" type="button" />
+        <Button
+          text="업데이트"
+          type="button"
+          onClick={() => updateMedalList(country)}
+        />
       </div>
     </form>
   );

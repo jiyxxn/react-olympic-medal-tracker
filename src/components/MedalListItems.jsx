@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-const MedalListItems = ({ data }) => {
+const MedalListItems = ({ data, deleteMedalList }) => {
   return (
     <>
       <tr>
@@ -9,8 +9,17 @@ const MedalListItems = ({ data }) => {
         <td>{data.goldMedals}</td>
         <td>{data.silverMedals}</td>
         <td>{data.bronzeMedals}</td>
+        <td>{data.sumOfMedals}</td>
         <td>
-          <Button text="삭제" type="button" className="btn-delete" />
+          {" "}
+          <Button
+            text="삭제"
+            type="button"
+            className="btn-delete"
+            onClick={() => {
+              deleteMedalList(data);
+            }}
+          />
         </td>
       </tr>
     </>

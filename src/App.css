@@ -67,9 +67,27 @@ button {
   margin: 50px 0;
   text-align: center;
 }
+.medal-list-container {
+  position: relative;
+  margin: 50px 0;
+  padding: 40px 0;
+}
+
+#medalSortSelect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  border: none;
+  padding-right: 4px;
+  font-size: 0.9rem;
+}
+
+#medalSortSelect:focus {
+  outline: none;
+}
 .medal-list-wrapper {
   width: 100%;
-  margin: 50px 0;
   text-align: center;
   border-radius: 10px;
   overflow: hidden;
