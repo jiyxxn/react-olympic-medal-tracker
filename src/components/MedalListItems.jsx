@@ -11,6 +11,7 @@ const MedalListItems = ({ data, deleteMedalList }) => {
         <td>{data.bronzeMedals}</td>
         <td>{data.sumOfMedals}</td>
         <td>
+          {" "}
           <Button
             text="삭제"
             type="button"
