@@ -12,6 +12,12 @@ const MedalList = ({ medalList, deleteMedalList }) => {
 
       case "sumOfMedals":
         return [...medalList].sort((a, b) => b.sumOfMedals - a.sumOfMedals);
+
+      case "countOfSilverMedals":
+        return [...medalList].sort((a, b) => b.silverMedals - a.silverMedals);
+
+      case "countOfBronzeMedals":
+        return [...medalList].sort((a, b) => b.bronzeMedals - a.bronzeMedals);
     }
   };
 
@@ -24,6 +30,8 @@ const MedalList = ({ medalList, deleteMedalList }) => {
     <div className="medal-list-container">
       <select id="medalSortSelect" onChange={sortMedalList} value={sortOption}>
         <option value="countOfGoldMedals">금메달</option>
+        <option value="countOfSilverMedals">은메달</option>
+        <option value="countOfBronzeMedals">동메달</option>
         <option value="sumOfMedals">메달 합계</option>
       </select>
       <div className="medal-list-wrapper">
