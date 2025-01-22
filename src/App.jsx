@@ -36,7 +36,6 @@ function App() {
 
     if (!existsNation) {
       toast.error("등록되지 않은 국가입니다. 국가를 추가해 주세요.");
-
       return;
     }
 
@@ -50,7 +49,7 @@ function App() {
   return (
     <>
       <section>
-        <h1>2024 파리 올림픽</h1>
+        <h1>2025 스파르타 올림픽 🏆</h1>
         <MedalForm
           saveMedalList={saveMedalList}
           updateMedalList={updateMedalList}
