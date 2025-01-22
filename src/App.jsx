@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import MedalForm from "./components/MedalForm";
 import MedalList from "./components/MedalList";
@@ -36,6 +36,7 @@ function App() {
     setUserInputs((prevState) => {
       return { ...prevState, [id]: value };
     });
+    console.log("userInputs =====>", userInputs);
   };
 
   // * 데이터 출력 및 입력 폼 초기화
@@ -67,6 +68,12 @@ function App() {
         handleFormSubmit={handleFormSubmit}
         userInputs={userInputs}
       />
+
+      {submittedData.length <= 0 && (
+        <p className="default-message">
+          아직 추가된 국가가 없습니다. 메달을 추적하세요!
+        </p>
+      )}
       {submittedData.length > 0 && <MedalList userInputs={submittedData} />}
     </section>
   );

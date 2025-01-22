@@ -10,7 +10,7 @@ const MedalListItems = ({ data }) => {
         <td>{data.silverMedals}</td>
         <td>{data.bronzeMedals}</td>
         <td>
-          <Button text="삭제" type="button" />
+          <Button text="삭제" type="button" className="btn-delete" />
         </td>
       </tr>
     </>

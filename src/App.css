@@ -1,7 +1,7 @@
 section {
   width: 50%;
-  min-width: 1024px;
-  padding: 2% 30px;
+  min-width: 768px;
+  padding: 2% 10%;
   background-color: #fefefe;
   margin: 100px auto;
   border-radius: 8px;
@@ -24,7 +24,7 @@ button {
 }
 
 .medal-input-container {
-  width: 85%;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -61,4 +61,45 @@ button {
   width: 80px;
   height: 30px;
   background-color: rgb(255, 195, 104);
+}
+
+.default-message {
+  margin: 50px 0;
+  text-align: center;
+}
+.medal-list-wrapper {
+  width: 100%;
+  margin: 50px 0;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px #00000030;
+}
+
+.medal-list-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.medal-list-wrapper table thead {
+  background-color: rgb(48, 45, 92);
+  border-radius: 4px 4px 0 0;
+  color: #fefefe;
+}
+.medal-list-wrapper table tr {
+  height: 46px;
+}
+
+.medal-list-wrapper table tbody tr:not(:last-child) {
+  border-bottom: solid 1px #eee;
+}
+
+.medal-list-wrapper table td:first-child {
+  background-color: rgb(236, 235, 243);
+}
+
+.btn-delete {
+  background-color: #e83939;
+  padding: 6px 12px;
+  color: #fefefe;
 }
