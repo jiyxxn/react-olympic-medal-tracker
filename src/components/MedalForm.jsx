@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InputText from "./InputText";
 import Button from "./Button";
-import { onlyPositiveNumbers } from "../utils/onlyPositiveNumbers";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const MedalForm = ({ saveMedalList, updateMedalList }) => {
   const [country, setCountry] = useState({
@@ -16,6 +15,21 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
   // * 사용자가 입력한 값을 state에 업데이트
   const handleUserInputChange = (e) => {
     const { id, value } = e.target;
+    console.log("입력 값  =====>", value);
+    // * Number 유효성 검사
+    if (id.includes("Medals")) {
+      e.target.value = value.replace(/[^0-9]/g, "").replace(/^0+(?=\d)/, "");
+    }
+
+    // if (id.includes("Medals")) {
+    //   const numericValue = parseInt(value);
+
+    //   if (isNaN(numericValue) || numericValue < 0) {
+    //     e.target.value = "";
+    //   } else {
+    //     e.target.value = numericValue;
+    //   }
+    // }
 
     setCountry((prevState) => {
       const updatedCountry = { ...prevState, [id]: value };
@@ -65,19 +79,16 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
       label: "금메달",
       id: "goldMedals",
       value: country.goldMedals,
-      onKeyUp: onlyPositiveNumbers,
     },
     {
       label: "은메달",
       id: "silverMedals",
       value: country.silverMedals,
-      onKeyUp: onlyPositiveNumbers,
     },
     {
       label: "동메달",
       id: "bronzeMedals",
       value: country.bronzeMedals,
-      onKeyUp: onlyPositiveNumbers,
     },
   ];
 
@@ -94,7 +105,6 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
           id={input.id}
           label={input.label}
           onChange={(e) => handleUserInputChange(e)}
-          onKeyUp={(e) => (input.onKeyUp ? input.onKeyUp(e) : () => {})}
         />
       ))}
 
