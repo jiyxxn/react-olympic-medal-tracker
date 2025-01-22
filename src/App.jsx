@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import MedalForm from "./components/MedalForm";
 import MedalList from "./components/MedalList";
 import { updateLocalStorage } from "./utils/updateLocalStorage";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const storedCountries = JSON.parse(localStorage.getItem("medalList"));
@@ -19,7 +21,7 @@ function App() {
 
   // * 해당 메달 정보를 로컬 스토리지에서 삭제
   const deleteMedalList = (country) => {
-    alert("삭제가 완료되었습니다.");
+    toast.success(`${country.nation}이(가) 삭제되었습니다.`);
     const updatedMedalList = medalList.filter(
       (item) => item.nation !== country.nation
     );
@@ -33,7 +35,8 @@ function App() {
     );
 
     if (!existsNation) {
-      alert("등록되지 않은 국가입니다. 국가를 추가해 주세요.");
+      toast.error("등록되지 않은 국가입니다. 국가를 추가해 주세요.");
+
       return;
     }
 
@@ -45,22 +48,36 @@ function App() {
   };
 
   return (
-    <section>
-      <h1>2024 파리 올림픽</h1>
-      <MedalForm
-        saveMedalList={saveMedalList}
-        updateMedalList={updateMedalList}
-      />
+    <>
+      <section>
+        <h1>2024 파리 올림픽</h1>
+        <MedalForm
+          saveMedalList={saveMedalList}
+          updateMedalList={updateMedalList}
+        />
 
-      {medalList.length <= 0 && (
-        <p className="default-message">
-          아직 추가된 국가가 없습니다. 메달을 추적하세요!
-        </p>
-      )}
-      {medalList.length > 0 && (
-        <MedalList medalList={medalList} deleteMedalList={deleteMedalList} />
-      )}
-    </section>
+        {medalList.length <= 0 && (
+          <p className="default-message">
+            아직 추가된 국가가 없습니다. 메달을 추적하세요!
+          </p>
+        )}
+        {medalList.length > 0 && (
+          <MedalList medalList={medalList} deleteMedalList={deleteMedalList} />
+        )}
+      </section>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
   );
 }
 
