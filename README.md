@@ -1,5 +1,3 @@
-<br>
-<br>
 
 #  2025 스파르타 올림픽 🏆
 > 배포 주소 : https://react-olympic-medal-tracker.vercel.app/
