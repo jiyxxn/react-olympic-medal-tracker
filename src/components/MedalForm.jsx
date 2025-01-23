@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputText from "./InputText";
 import Button from "./Button";
 import { toast } from "react-toastify";
@@ -12,24 +12,14 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
     sumOfMedals: "",
   });
 
-  // * 사용자가 입력한 값을 state에 업데이트
+  // * 사용자가 입력한 값을 country state에 업데이트
   const handleUserInputChange = (e) => {
     const { id, value } = e.target;
-    console.log("입력 값  =====>", value);
-    // * Number 유효성 검사
-    if (id.includes("Medals")) {
-      e.target.value = value.replace(/[^0-9]/g, "").replace(/^0+(?=\d)/, "");
+
+    // Number 입력 값 유효성 검증
+    if (id.includes("Medals") && (isNaN(value) || value < 0)) {
+      return false;
     }
-
-    // if (id.includes("Medals")) {
-    //   const numericValue = parseInt(value);
-
-    //   if (isNaN(numericValue) || numericValue < 0) {
-    //     e.target.value = "";
-    //   } else {
-    //     e.target.value = numericValue;
-    //   }
-    // }
 
     setCountry((prevState) => {
       const updatedCountry = { ...prevState, [id]: value };
@@ -44,14 +34,27 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
     });
   };
 
+  // 입력 필드 초기화 양식
+  const resetForm = () => {
+    setCountry({
+      nation: "",
+      goldMedals: "",
+      silverMedals: "",
+      bronzeMedals: "",
+      sumOfMedals: "",
+    });
+  };
+
   const validateAndSubmitForm = (e) => {
     e.preventDefault();
 
+    // 입력 값 검증
     if (Object.values(country).some((val) => val === "")) {
       toast.error("작성되지 않은 값이 있습니다.");
-
-      return;
+      return false;
     }
+
+    // 해당 국가 데이터 존재 여부 검증
     const storedCountries = JSON.parse(localStorage.getItem("medalList"));
 
     if (storedCountries) {
@@ -61,12 +64,12 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
 
       if (existsNation) {
         toast.warning("이미 등록된 국가입니다. 업데이트를 이용해 주세요.");
-
-        return;
+        return false;
       }
     }
 
     saveMedalList(country);
+    resetForm();
   };
 
   const inputList = [
@@ -104,6 +107,7 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
           key={input.id}
           id={input.id}
           label={input.label}
+          value={input.value}
           onChange={(e) => handleUserInputChange(e)}
         />
       ))}
@@ -113,7 +117,10 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
         <Button
           text="업데이트"
           type="button"
-          onClick={() => updateMedalList(country)}
+          onClick={() => {
+            updateMedalList(country);
+            resetForm();
+          }}
         />
       </div>
     </form>
