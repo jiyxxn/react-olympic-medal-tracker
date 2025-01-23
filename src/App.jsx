@@ -30,19 +30,27 @@ function App() {
 
   // * 메달 정보 업데이트
   const updateMedalList = (updatedCountry) => {
+    // 입력 값 검증
+    if (Object.values(updatedCountry).some((value) => value === "")) {
+      toast.error("작성되지 않은 값이 있습니다.");
+      return false;
+    }
+
+    // 해당 국가 데이터 존재 여부 검증
     const existsNation = medalList.some(
       (country) => country.nation === updatedCountry.nation
     );
 
     if (!existsNation) {
       toast.error("등록되지 않은 국가입니다. 국가를 추가해 주세요.");
-      return;
+      return false;
     }
 
     const updatedMedalList = medalList.map((country) =>
       country.nation === updatedCountry.nation ? updatedCountry : country
     );
 
+    toast.success(`${updatedCountry.nation}이(가) 업데이트되었습니다.`);
     updateLocalStorage(setMedalList, "medalList", updatedMedalList);
   };
 
