@@ -119,7 +119,6 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
           type="button"
           onClick={() => {
             updateMedalList(country);
-            resetForm();
           }}
         />
       </div>
