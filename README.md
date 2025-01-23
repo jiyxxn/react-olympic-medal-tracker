@@ -51,8 +51,11 @@
 |   |   |- MedalForm.jsx
 |   |   |- MedalList.jsx
 |   |   |- MedalListItems.jsx
+|
 |   |- utils
 |   |   |- updateLocalStorage.js
+|   |   |- calculateTotalMedals.js
+|   |   |- formValidation.js
 |   |
 |   |- App.jsx
 |   |- main.jsx
