@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import MedalForm from "./components/MedalForm";
-import MedalList from "./components/MedalList";
-import { updateLocalStorage } from "./utils/updateLocalStorage";
-import { ToastContainer, toast } from "react-toastify";
-import { checkEmptyFields, checkExistCountry } from "./utils/formValidation";
+import React, { useState } from 'react';
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import MedalForm from './components/MedalForm';
+import MedalList from './components/MedalList';
+import { updateLocalStorage } from './utils/updateLocalStorage';
+import { ToastContainer, toast } from 'react-toastify';
+import {
+  checkEmptyFields,
+  checkExistCountry,
+} from './utils/formValidation';
 
 function App() {
   // * 로컬 스토리지에 저장된 국가 메달 리스트
-  const storedCountries = JSON.parse(localStorage.getItem("medalList"));
+  const storedCountries = JSON.parse(
+    localStorage.getItem('medalList')
+  );
 
   // * 국가 메달 리스트 state
   const [medalList, setMedalList] = useState(() => {
@@ -21,7 +26,7 @@ function App() {
   */
   const saveMedalList = (country) => {
     const newMedalList = [...medalList, country];
-    updateLocalStorage(setMedalList, "medalList", newMedalList);
+    updateLocalStorage(setMedalList, 'medalList', newMedalList);
     toast.success(`${country.nation}이(가) 등록되었습니다.`);
   };
 
@@ -31,7 +36,7 @@ function App() {
     const updatedMedalList = medalList.filter(
       (item) => item.nation !== country.nation
     );
-    updateLocalStorage(setMedalList, "medalList", updatedMedalList);
+    updateLocalStorage(setMedalList, 'medalList', updatedMedalList);
     toast.success(`${country.nation}이(가) 삭제되었습니다.`);
   };
 
@@ -44,11 +49,15 @@ function App() {
       checkExistCountry(e, medalList, updatedCountry); // 등록되지 않은 국가를 update할 시 throw error
 
       const updatedMedalList = medalList.map((country) =>
-        country.nation === updatedCountry.nation ? updatedCountry : country
+        country.nation === updatedCountry.nation
+          ? updatedCountry
+          : country
       );
 
-      toast.success(`${updatedCountry.nation}이(가) 업데이트되었습니다.`);
-      updateLocalStorage(setMedalList, "medalList", updatedMedalList);
+      toast.success(
+        `${updatedCountry.nation}이(가) 업데이트되었습니다.`
+      );
+      updateLocalStorage(setMedalList, 'medalList', updatedMedalList);
       return true;
     } catch (error) {
       console.error(error.message);
@@ -71,7 +80,10 @@ function App() {
           </p>
         )}
         {medalList.length > 0 && (
-          <MedalList medalList={medalList} deleteMedalList={deleteMedalList} />
+          <MedalList
+            medalList={medalList}
+            deleteMedalList={deleteMedalList}
+          />
         )}
       </section>
       <ToastContainer
