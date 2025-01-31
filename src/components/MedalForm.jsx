@@ -1,31 +1,31 @@
-import React, { useState } from "react";
-import InputText from "./InputText";
-import Button from "./Button";
+import React, { useState } from 'react';
+import InputText from './InputText';
+import Button from './Button';
 import {
   checkEmptyFields,
   checkExistCountry,
   checkPositiveNumber,
-} from "./../utils/formValidation";
-import { calculateTotalMedals } from "./../utils/calculateTotalMedals";
+} from './../utils/formValidation';
+import { calculateTotalMedals } from './../utils/calculateTotalMedals';
 
 const MedalForm = ({ saveMedalList, updateMedalList }) => {
   // * input 필드 state
   const [country, setCountry] = useState({
-    nation: "",
-    goldMedals: "",
-    silverMedals: "",
-    bronzeMedals: "",
-    sumOfMedals: "",
+    nation: '',
+    goldMedals: '',
+    silverMedals: '',
+    bronzeMedals: '',
+    sumOfMedals: '',
   });
 
   // 입력 필드 초기화 양식
   const resetForm = () => {
     setCountry({
-      nation: "",
-      goldMedals: "",
-      silverMedals: "",
-      bronzeMedals: "",
-      sumOfMedals: "",
+      nation: '',
+      goldMedals: '',
+      silverMedals: '',
+      bronzeMedals: '',
+      sumOfMedals: '',
     });
   };
 
@@ -34,7 +34,7 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
     const { id, value } = e.target;
 
     let validatedValue = value;
-    validatedValue = checkPositiveNumber("Medals", id, value, validatedValue);
+    validatedValue = checkPositiveNumber('Medals', id, value, validatedValue);
 
     setCountry((prevState) => {
       const updatedCountry = { ...prevState, [id]: validatedValue };
@@ -51,7 +51,7 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
     try {
       checkEmptyFields(country); // 입력 필드가 비어있을 시 throw error
 
-      const storedCountries = JSON.parse(localStorage.getItem("medalList"));
+      const storedCountries = JSON.parse(localStorage.getItem('medalList'));
       checkExistCountry(e, storedCountries, country); // 이미 등록된 국가를 재등록 하는 경우 throw error
 
       saveMedalList(country);
@@ -73,23 +73,23 @@ const MedalForm = ({ saveMedalList, updateMedalList }) => {
   // * input 필드 리스트
   const inputList = [
     {
-      label: "국가",
-      id: "nation",
+      label: '국가',
+      id: 'nation',
       value: country.nation,
     },
     {
-      label: "금메달",
-      id: "goldMedals",
+      label: '금메달',
+      id: 'goldMedals',
       value: country.goldMedals,
     },
     {
-      label: "은메달",
-      id: "silverMedals",
+      label: '은메달',
+      id: 'silverMedals',
       value: country.silverMedals,
     },
     {
-      label: "동메달",
-      id: "bronzeMedals",
+      label: '동메달',
+      id: 'bronzeMedals',
       value: country.bronzeMedals,
     },
   ];
