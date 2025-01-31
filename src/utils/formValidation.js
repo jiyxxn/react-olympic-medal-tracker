@@ -14,7 +14,7 @@ export const checkEmptyFields = (inputs) => {
     @param {object} prevCountries : 기존에 등록된 국가 리스트
     @param {object} updatedCountry : input 필드의 state (새로 업데이트되는 value) */
 export const checkExistCountry = (e, prevCountries, updatedCountry) => {
-  if (!prevCountries) prevCountries = [];
+  if (!Array.isArray(prevCountries)) prevCountries = [];
 
   const existsCountry = prevCountries.some(
     (prevCountry) => prevCountry.nation === updatedCountry.nation
